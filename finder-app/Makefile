@@ -1,5 +1,3 @@
-CROSS_COMPILE=aarch64-none-linux-gnu
-
 writer: writer.o
 	$(CROSS_COMPILE)-gcc writer.o -o writer
 
