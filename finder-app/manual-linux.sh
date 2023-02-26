@@ -43,6 +43,7 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
 fi
 
 echo "Adding the Image in outdir"
+cp ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ${OUTDIR}/
 
 echo "Creating the staging directory for the root filesystem"
 cd "$OUTDIR"
@@ -64,11 +65,12 @@ then
 git clone git://busybox.net/busybox.git
     cd busybox
     git checkout ${BUSYBOX_VERSION}
-    make distclean
-	make defconfig
 else
     cd busybox
 fi
+
+make distclean
+make defconfig
 
 make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE}
 make CONFIG_PREFIX=${OUTDIR}/rootfs ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} install
@@ -104,3 +106,5 @@ sudo chown -R root:root *
 
 find . | cpio -H newc -ov --owner root:root > ${OUTDIR}/initramfs.cpio
 cd ${OUTDIR}
+rm -f initramfs.cpio.gz
+gzip initramfs.cpio 
