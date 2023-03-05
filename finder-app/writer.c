@@ -18,11 +18,8 @@ int main(int argc, char *argv[])
     else
     {
 
-        const char *file = argv[1];
-        const char *text = argv[2];
-
         int fd;
-        fd = open(argv[1],O_CREAT|O_RDWR,S_IWUSR|S_IRUSR);
+        fd = open(argv[1],O_CREAT|O_RDWR,0644);
 
         if (fd == -1)
         {
