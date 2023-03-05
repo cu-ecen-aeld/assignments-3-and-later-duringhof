@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 if [ $# -eq 2 ]; then
 	filesdir=$1
 	searchstr=$2
