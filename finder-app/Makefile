@@ -1,13 +1,13 @@
+CC=gcc
 CROSS_COMPILE=aarch64-none-linux-gnu-
 
 all: writer
 
-writer: writer.o
-	$(CROSS_COMPILE)gcc writer.o -o writer
-
-writer.o: writer.c
-	$(CROSS_COMPILE)gcc -c writer.c
-
 clean:
-	rm -f *.o writer
+		-rm -f *.o writer
+
+%.o:%.c
+	$(CROSS_COMPILE)$(CC) -c -o $@ $< -Wall -Werror
 	
+writer:writer.o
+	$(CROSS_COMPILE)$(CC) -o $@ $^
