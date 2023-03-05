@@ -1,4 +1,6 @@
-all: writer
+all:
+	CROSS_COMPILE=aarch64-none-linux-gnu
+	writer
 
 writer: writer.o
 	$(CROSS_COMPILE)gcc writer.o -o writer
