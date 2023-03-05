@@ -31,8 +31,6 @@ MATCHSTR="The number of files are ${NUMFILES} and the number of matching lines a
 echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${WRITEDIR}"
 
 rm -rf "${WRITEDIR}"
-
-
 mkdir -p "$WRITEDIR"
 
 #The WRITEDIR is in quotes because if the directory path consists of spaces, then variable substitution will consider it as multiple argument.
@@ -45,7 +43,7 @@ else
 	exit 1
 fi
 
-echo "Removing the old writer utility and compiling as a native application"
+#echo "Removing the old writer utility and compiling as a native application"
 #make clean
 #make
 

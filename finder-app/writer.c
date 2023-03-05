@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         const char *text = argv[2];
 
         int fd;
-        fd = open(argv[1], O_CREAT | O_RDWR, 0644);
+        fd = open(argv[1],O_CREAT|O_RDWR,S_IWUSR|S_IRUSR);
 
         if (fd == -1)
         {
