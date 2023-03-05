@@ -5,13 +5,12 @@
 int main(int argc, char *argv[])
 {
 
-    openlog(NULL, LOG_CONS, LOG_USER);
+    openlog("writer", 0, LOG_USER);
 
     if (argc < 3)
     {
 
-        syslog(LOG_ERR, "Invalid Number of Arguments (%d)",argc);
-
+        syslog(LOG_ERR, "Error: Invalid number of arguments\n");
         return 1;
     }
     else
@@ -19,14 +18,23 @@ int main(int argc, char *argv[])
 
         const char *file = argv[1];
         const char *text = argv[2];
-        FILE *fd;
 
-        fd = fopen(file, "w");
-        syslog(LOG_DEBUG, "Blahblah %d", argc);
-        syslog(LOG_DEBUG, "Writing %s to file %s\n", text, file);
-        fprintf(fd, "%s\n", text);
-        fclose(fd);
+        int fd;
+        fd = open(argv[1], O_CREAT | O_RDWR, 0644);
 
+        if (fd == -1)
+        {
+            syslog(LOG_ERR, "Could not create file\n");
+        }
+        else
+        {
+            int written_bytes = write(fd, argv[2], strlen(argv[2]));
+            if (written_bytes != strlen(argv[2]))
+                syslog(LOG_ERR, "Did not complete write\n");
+            else
+                syslog(LOG_DEBUG, "Writing %s to %s", argv[2], argv[1]);
+        }
+        close(fd);
         return 0;
     }
 }
